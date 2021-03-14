@@ -1,4 +1,4 @@
-# Python Implementation of Large N Limit of Knapsack Problem
+# Large N Limit of Knapsack Problem
 
 The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem [1], we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
@@ -7,6 +7,34 @@ This library provides algorithms for solving various incarnations of the  Knapsa
 There are exact algorithms for the knapsack problem [RossettaCode Knapsack](https://rosettacode.org/wiki/Knapsack_problem), but these take longer as the number of items increases. The algorithms in this repository provide approximate solutions in much less time. 
 
 Table of times?
+
+## Quick Start Up 
+
+The quickest way to run the algorithm for a first test is to open the notebook `quick_run.ipynb` and execute all the cells. The result is a solution to the rosetta code problem
+
+
+To apply the problem to other instances of values and weights, just replace the values and weight lists in the quick start up with your chosen lists. 
+
+## Plotting Potential Function
+
+To plot the potential function you can run the code
+
+
+## Knapsack Variations
+
+Repository includes code for two variations of the knapsack problem: The unbounded and the bounded knapsack problems. Implementing them is identical to the implementation for the `zero_one_algorithm`. 
+
+Example
+
+Notes: Although these algorithms are analytically based on a large N approximation, Python has bounds on the size of integers it can process. Thus when the unbounded knapsack problem estimates C (the implicit bound on the number of items in the knapsack; see corresponding section in paper for a discussion) the value it results in could lead to an overflow error. 
+
+
+## Figure Reproduction
+
+
+
+
+
 
 ## Installation
 
@@ -122,10 +150,10 @@ For details of the adjoint-specific and solver-specific options, check out the [
 
 If you found this library useful in your research, please consider citing
 ```
-@article{chen2018neural,
-  title={Neural Ordinary Differential Equations},
-  author={Chen, Ricky T. Q. and Rubanova, Yulia and Bettencourt, Jesse and Duvenaud, David},
-  journal={Advances in Neural Information Processing Systems},
-  year={2018}
+@article{williams2021knapsack,
+  title={Large N Limit of the Knapsack Problem},
+  author={Williams, Mobolaji},
+  journal={arXiv preprint arXiv:CCC},
+  year={2021}
 }
 ```
