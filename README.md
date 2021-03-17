@@ -4,13 +4,36 @@ The Knapsack Problem is a classic problem from combinatorial optimization. In th
 
 This library provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. Currently the libary supports approximate solutions to the "0-1", "bounded", and "unbounded" versions of the problem. 
 
-There are exact algorithms for the knapsack problem [RossettaCode Knapsack](https://rosettacode.org/wiki/Knapsack_problem), but these take longer as the number of items increases. The algorithms in this repository provide approximate solutions in much less time. 
+There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](https://rosettacode.org/wiki/Knapsack_problem), but these take longer as the number of items increases. The algorithms in this repository provide approximate solutions in much less time. 
 
 Table of times?
 
 ## Quick Start Up 
 
-The quickest way to run the algorithm for a first test is to open the notebook `quick_run.ipynb` and execute all the cells. The result is a solution to the rosetta code problem
+The quickest way to run the algorithm for a first test is to open the notebook `quick_start.ipynb` and execute all the cells. The notebook compares the results of the large N algorithm to those of dynamical programming for the problem described in [RossettaCode Knapsack](https://rosettacode.org/wiki/Knapsack_problem). For only the large N algorithm solution, you would run the following code. 
+
+```
+from largeN import zero_one_algorithm
+import numpy as np
+
+items = (
+    ("map", 9, 150), ("compass", 13, 35), ("water", 153, 200), ("sandwich", 50, 160),
+    ("glucose", 15, 60), ("tin", 68, 45), ("banana", 27, 60), ("apple", 39, 40),
+    ("cheese", 23, 30), ("beer", 52, 10), ("suntan cream", 11, 70), ("camera", 32, 30),
+    ("t-shirt", 24, 15), ("trousers", 48, 10), ("umbrella", 73, 40),
+    ("waterproof trousers", 42, 70), ("waterproof overclothes", 43, 75),
+    ("note-case", 22, 80), ("sunglasses", 7, 20), ("towel", 18, 12),
+    ("socks", 4, 50), ("book", 30, 10),
+    )
+
+# defining weight and value vectors and weight limit
+weight_vec = np.array([item[1] for item in items])
+value_vec = np.array([item[2] for item in items])
+Wlimit = 400
+
+zero_one_algorithm(weights = weight_vec, values = value_vec, limit = Wlimit)
+>>> [1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0]
+```
 
 
 To apply the problem to other instances of values and weights, just replace the values and weight lists in the quick start up with your chosen lists. 
