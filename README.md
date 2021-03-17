@@ -8,12 +8,8 @@ There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](ht
 
 Table of times?
 
-## Quick Start Up 
-
-The quickest way to run the algorithm for a first test is to open the notebook `quick_start.ipynb` and execute all the cells. The notebook compares the results of the large N algorithm to those of dynamical programming for the problem described in [RossettaCode Knapsack](https://rosettacode.org/wiki/Knapsack_problem). For only the large N algorithm solution, you would run the following code. 
-
+Problem Setup 
 ```
-from largeN import zero_one_algorithm
 import numpy as np
 
 items = (
@@ -30,6 +26,14 @@ items = (
 weight_vec = np.array([item[1] for item in items])
 value_vec = np.array([item[2] for item in items])
 Wlimit = 400
+```
+
+## Quick Start Up 
+
+The quickest way to run the algorithm for a first test is to open the notebook `quick_start.ipynb` and execute all the cells. The notebook compares the results of the large N algorithm to those of dynamical programming for the problem described in [RossettaCode Knapsack](https://rosettacode.org/wiki/Knapsack_problem). For only the large N algorithm solution, you would run the following code. 
+
+```
+from largeN import zero_one_algorithm
 
 zero_one_algorithm(weights = weight_vec, values = value_vec, limit = Wlimit)
 >>> [1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0]
@@ -39,6 +43,19 @@ zero_one_algorithm(weights = weight_vec, values = value_vec, limit = Wlimit)
 To apply the problem to other instances of values and weights, just replace the values and weight lists in the quick start up with your chosen lists. 
 
 ## Plotting Potential Function
+
+To plot the potential function you can run the code
+
+```
+from potential_functions import plot_potential_zero_one
+import numpy as np
+
+plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= [1.5])
+```
+
+[Figure]
+
+## Algorithm Comparison Plots
 
 To plot the potential function you can run the code
 
@@ -52,10 +69,9 @@ Example
 Notes: Although these algorithms are analytically based on a large N approximation, Python has bounds on the size of integers it can process. Thus when the unbounded knapsack problem estimates C (the implicit bound on the number of items in the knapsack; see corresponding section in paper for a discussion) the value it results in could lead to an overflow error. 
 
 
-## Figure Reproduction
+## Paper Reproduction
 
-
-
+The notebooks that reproduct the figures in the paper are as follows
 
 
 
