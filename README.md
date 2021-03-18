@@ -36,7 +36,7 @@ These values are taken from the problem statement in [RossettaCode Knapsack: 0-1
 
 ## Running Large N Algorithm
 
-The quickest way to run the algorithm for a first test is to open the notebook `quick_start.ipynb` and execute all the cells. The notebook compares the results of the large N algorithm to those of dynamical programming for the above Knapsack instance. The knapsack algorithms out put lists of 1s and 0s corresponding to putting an item in a knapsack or leaving it out. To get results for the large N algorithm solution alone run the following code. 
+Given weights, values, and a limit, the large N algorithm outputs a list of 1s and 0 correspon algorithm corresponding to putting the respective item in the list in the knapsack or leaving it out. To quickly run the algorithm, execute the following code after defining the item list above.
 
 ```
 from largeN import zero_one_algorithm
@@ -65,19 +65,100 @@ To apply the problem to other instances of items, values, and weights, just repl
 ## Plotting Potential Function
 
 To plot the potential function you can run the code
+The potential function for the zero-one problem is 
+```
+FN_zero_one = lambda z, weights, values, limit, T: - limit*np.log(z)-np.log(1-z) + np.sum(np.log(1+z**(weights)*np.exp(values/T)))
+```
+This function gives a continuous representation of the standard discrete optimization objective. If the function has a local minimum, then the large N algorithm can solve the knapsack problem. This minimum depends on temperature, and as the temperature is lowered the minimum better defines an optimal solution for the knapsack problem. To plot the potential function for the above instance, execute the following code. 
 
 ```
 from potential_functions import plot_potential_zero_one
 import numpy as np
 
-plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= [1.5])
+plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= 1.5)
 ```
 
 <img align = "center" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "50%">
 
 ## Algorithm Comparison Plots
 
-To plot the potential function you can run the code
+In the original paper, we compare the performance of various classic knapsack problem algorithms to the proposed algorithm. The algorithms we compare are
+
+- **Brute Force:**(`brute_force`) Involves listing all possible combinations of items, computing the total weights and total values of each combination and selecting the combination with the highest value with a weight below the stated limit. 
+
+- **Dynamical Programming Solution:**(`knapsack_dpV`)  Standard iterative solution to the problem which involves storing sub-problem solutions in matrix elements
+
+- **Fully Polynomial Time Approximate Solution (FPTAS):**(`fptas`)  Algorithm that is polynomial time in the number of elements and which has a tunable accuracy
+
+- **Greedy Algorithm:**(`greedy`)  Involves computing the ratio of weights to volumes for each object and filling in the collection until the max weight is reached. 
+
+- **Simulated Annealing:**(`simannl_knapsack`)   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures. 
+
+- **Large N Algorithm:**(`zero_one_algorithm`)  Algorithm based on statistical physics representation of the system
+
+A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
+
+```
+from dp import knapsack01_dpV
+from brute import brute_force
+from fptas import fptas
+from greedy import greedy
+from annealing import simann_knapsack
+from largeN import zero_one_algorithm
+
+from tabulate import tabulate
+from collections import defaultdict
+
+import time
+
+# dictionary of algorithm names and functions
+algo_name_dict = {'DP': knapsack01_dpV,  
+                 'Brute': brute_force,
+                 'FPTAS': fptas,
+                 'Greedy': greedy,
+                 'Annealing': simann_knapsack,
+                 'Large N': zero_one_algorithm}
+
+# dictionary of algorithm names and results
+results_name_dict = defaultdict(lambda: list())
+
+for name, func in algo_name_dict.items():
+    start_clock = time.time()
+    soln  = func(weights = weight_vec, values = value_vec, limit = Wlimit)
+    
+    # calculating values
+    tot_value = str(round(np.dot(value_vec, soln), 0))
+    tot_weight = str(round(np.dot(weight_vec, soln), 0))
+    time_calc = str(round(time.time()-start_clock, 5)) 
+    
+    # assembling results
+    results_name_dict[name] = [name, tot_value, tot_weight, time_calc]
+    
+# creating table of results
+tabular_results = []
+for k, v in results_name_dict.items():
+    tabular_results.append(v) 
+
+print(tabulate(tabular_results, ["Algorithm", "Value", "W", "Time (sec)"], tablefmt="grid"))
+>>>
+Stopping annealing because error tolerance was reached
++-------------+---------+-----+--------------+
+| Algorithm   |   Value |   W |   Time (sec) |
++=============+=========+=====+==============+
+| DP          |    1030 | 396 |      0.00695 |
++-------------+---------+-----+--------------+
+| Brute       |    1030 | 396 |     32.3349  |
++-------------+---------+-----+--------------+
+| FPTAS       |    1030 | 396 |      0.00433 |
++-------------+---------+-----+--------------+
+| Greedy      |    1030 | 396 |      9e-05   |
++-------------+---------+-----+--------------+
+| Annealing   |     957 | 379 |      0.14111 |
++-------------+---------+-----+--------------+
+| Large N     |    1030 | 396 |      0.00086 |
++-------------+---------+-----+--------------+
+
+```
 
 
 ## Knapsack Variations
