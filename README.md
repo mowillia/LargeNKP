@@ -2,13 +2,17 @@
 
 The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem [1], we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
-This library provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. Currently the libary supports approximate solutions to the "0-1", "bounded", and "unbounded" versions of the problem. 
+This repository provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. Currently the libary supports approximate solutions to the "0-1", "bounded", and "unbounded" versions of the problem. 
 
 There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](https://rosettacode.org/wiki/Knapsack_problem), but these take longer as the number of items increases. The algorithms in this repository provide approximate solutions in much less time. 
 
 Table of times?
 
 Problem Setup 
+
+## Knapsack Instance
+
+In the following examples, we will use the item list, weights, values, and weight limits given as follows.
 ```
 import numpy as np
 
@@ -28,19 +32,35 @@ value_vec = np.array([item[2] for item in items])
 Wlimit = 400
 ```
 
+These values are taken from the problem statement in [RossettaCode Knapsack: 0-1](https://rosettacode.org/wiki/Knapsack_problem/0-1)
+
 ## Quick Start Up 
 
-The quickest way to run the algorithm for a first test is to open the notebook `quick_start.ipynb` and execute all the cells. The notebook compares the results of the large N algorithm to those of dynamical programming for the problem described in [RossettaCode Knapsack](https://rosettacode.org/wiki/Knapsack_problem). For only the large N algorithm solution, you would run the following code. 
+The quickest way to run the algorithm for a first test is to open the notebook `quick_start.ipynb` and execute all the cells. The notebook compares the results of the large N algorithm to those of dynamical programming for the above Knapsack instance. The knapsack algorithms out put lists of 1s and 0s corresponding to putting an item in a knapsack or leaving it out. To get results for the large N algorithm solution alone run the following code. 
 
 ```
 from largeN import zero_one_algorithm
 
-zero_one_algorithm(weights = weight_vec, values = value_vec, limit = Wlimit)
->>> [1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0]
+soln = zero_one_algorithm(weights = weight_vec, values = value_vec, limit = Wlimit)
+for k in range(len(soln)):
+    if soln[k] == 1:
+        print(items[k][0])
+>>>
+map
+compass
+water
+sandwich
+glucose
+banana
+suntan cream
+waterproof trousers
+waterproof overclothes
+note-case
+sunglasses
+socks
 ```
 
-
-To apply the problem to other instances of values and weights, just replace the values and weight lists in the quick start up with your chosen lists. 
+To apply the problem to other instances of items, values, and weights, just replace the values and weight lists in the quick start up with your chosen lists. 
 
 ## Plotting Potential Function
 
@@ -53,7 +73,7 @@ import numpy as np
 plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= [1.5])
 ```
 
-[Figure]
+<img align = "center" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "50%"
 
 ## Algorithm Comparison Plots
 
