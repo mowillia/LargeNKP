@@ -103,6 +103,7 @@ In the original paper, we compare the performance of various classic knapsack pr
 
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
+Assembling needed algorithms and modules
 ```
 from brute import brute_force
 from dp import knapsack01_dpV
@@ -112,10 +113,11 @@ from annealing import simann_knapsack
 from largeN import zero_one_algorithm
 
 from tabulate import tabulate
-from collections import defaultdict
 
 import time
-
+```
+Defining dictionary of algorithms and empty dictionary for results
+```
 # dictionary of algorithm names and functions
 algo_name_dict = {'Brute': brute_force,
                   'DP': knapsack01_dpV,
@@ -125,8 +127,10 @@ algo_name_dict = {'Brute': brute_force,
                   'Large N': zero_one_algorithm}
 
 # dictionary of algorithm names and results
-results_name_dict = defaultdict(lambda: list())
-
+results_name_dict = dict()
+```
+Running algorithm and creating table of results
+```
 for name, func in algo_name_dict.items():
     start_clock = time.time()
     soln  = func(weights = weight_vec, values = value_vec, limit = Wlimit)
@@ -143,13 +147,11 @@ for name, func in algo_name_dict.items():
 tabular_results = []
 for k, v in results_name_dict.items():
     tabular_results.append(v) 
-
+```
+Printing Table
+```
 print(tabulate(tabular_results, ["Algorithm", "Value", "Weight", "Time (sec)"], tablefmt="grid"))
-```
-
-```
 >>>
-Stopping annealing because error tolerance was reached
 +-------------+---------+-----------+--------------+
 | Algorithm   |   Value |   Weight  |   Time (sec) |
 +=============+=========+===========+==============+
