@@ -1,6 +1,8 @@
 # Large N Limit of Knapsack Problem
 
+<p align="center">
 <img align = "center" src = "https://user-images.githubusercontent.com/8810308/111638380-a53b3400-87d0-11eb-9407-78a613cdd922.png"  onmouseover= "Motivation for statistical physics based algorithm" width = "75%">
+</p>
 
 The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem [1], we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
@@ -82,8 +84,9 @@ import numpy as np
 plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= 1.5)
 >>>
 ```
-
+<p align="center">
 <img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "40%">
+</p>
 
 ## Plotting total value as a function of temperature
 
