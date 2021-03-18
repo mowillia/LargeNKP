@@ -99,7 +99,7 @@ plot_value_vs_temp(weights = weight_vec, values = value_vec, limit = Wlimit, tem
 >>>
 ```
 <p align="center">
-<img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111657616-fd2e6680-87e1-11eb-8077-cd7ed1f25c29.png" width = "40%">
+<img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111698215-f5d08280-880c-11eb-8361-330a35755881.png" width = "40%">
 </p>
 
 ## Algorithm comparison plots
