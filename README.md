@@ -36,7 +36,7 @@ Wlimit = 400
 
 These values are taken from the problem statement in [RossettaCode Knapsack: 0-1](https://rosettacode.org/wiki/Knapsack_problem/0-1)
 
-## Running Large N Algorithm
+## Running Large N algorithm
 
 Given weights, values, and a limit, the large N algorithm outputs a list of 1s and 0 correspon algorithm corresponding to putting the respective item in the list in the knapsack or leaving it out. To quickly run the algorithm, execute the following code after defining the item list above.
 
@@ -67,9 +67,8 @@ socks
 
 To apply the problem to other instances of items, values, and weights, just replace the values and weight lists in the quick start up with your chosen lists. 
 
-## Plotting Potential Function
+## Plotting potential function
 
-To plot the potential function you can run the code
 The potential function for the zero-one problem is 
 ```
 FN_zero_one = lambda z, weights, values, limit, T: - limit*np.log(z)-np.log(1-z) + np.sum(np.log(1+z**(weights)*np.exp(values/T)))
@@ -77,15 +76,30 @@ FN_zero_one = lambda z, weights, values, limit, T: - limit*np.log(z)-np.log(1-z)
 This function gives a continuous representation of the standard discrete optimization objective. If the function has a local minimum, then the large N algorithm can solve the knapsack problem. This minimum depends on temperature, and as the temperature is lowered the minimum better defines an optimal solution for the knapsack problem. To plot the potential function for the above instance, execute the following code. 
 
 ```
-from potential_functions import plot_potential_zero_one
+from plots import plot_potential_zero_one
 import numpy as np
 
 plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= 1.5)
+>>>
 ```
 
 <img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "40%">
 
-## Algorithm Comparison Plots
+## Plotting total value as a function of temperature
+
+To plot the calculated total value as a function of temperature, execute the following code
+
+```
+from plots import plot_value_vs_temp
+
+plot_value_vs_temp(weights = weight_vec, values = value_vec, limit = Wlimit, temp_low=1.0, temp_high = 60.0)
+>>>
+```
+
+<img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111657616-fd2e6680-87e1-11eb-8077-cd7ed1f25c29.png" width = "40%">
+
+
+## Algorithm comparison plots
 
 In the original paper, we compare the performance of various classic knapsack problem algorithms to the proposed algorithm. The algorithms we compare are
 
@@ -184,8 +198,8 @@ Notes: Although these algorithms are analytically based on a large N approximati
 
 The notebooks that reproduct the figures in the paper are as follows
 
-- ``: Reproduces Figure 2
-- ``: Reproduces Figure 3 
+- `potential_landscape.ipynb`: Reproduces Figure 2; Runs in < 1 minute
+- `algorithm_comparisons.ipynb`: Reproduces Figure 3; Runs in 15 minutes
 - ``: Reproduces Figure 4
 
 
