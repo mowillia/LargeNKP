@@ -1,5 +1,7 @@
 # Large N Limit of Knapsack Problem
 
+<img align = "center" src = "https://user-images.githubusercontent.com/8810308/111638380-a53b3400-87d0-11eb-9407-78a613cdd922.png"  onmouseover= "Motivation for statistical physics based algorithm" width = "75%">
+
 The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem [1], we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
 This repository provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. Currently the libary supports approximate solutions to the "0-1", "bounded", and "unbounded" versions of the problem. 
@@ -45,6 +47,9 @@ soln = zero_one_algorithm(weights = weight_vec, values = value_vec, limit = Wlim
 for k in range(len(soln)):
     if soln[k] == 1:
         print(items[k][0])
+```
+
+```
 >>>
 map
 compass
@@ -140,6 +145,9 @@ for k, v in results_name_dict.items():
     tabular_results.append(v) 
 
 print(tabulate(tabular_results, ["Algorithm", "Value", "W", "Time (sec)"], tablefmt="grid"))
+```
+
+```
 >>>
 Stopping annealing because error tolerance was reached
 +-------------+---------+-----+--------------+
@@ -173,6 +181,10 @@ Notes: Although these algorithms are analytically based on a large N approximati
 ## Paper Reproduction
 
 The notebooks that reproduct the figures in the paper are as follows
+
+- ``: Reproduces Figure 2
+- ``: Reproduces Figure 3 
+- ``: Reproduces Figure 4
 
 
 
