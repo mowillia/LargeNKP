@@ -10,9 +10,6 @@ This repository provides algorithms for solving various incarnations of the  Kna
 
 There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](https://rosettacode.org/wiki/Knapsack_problem), but these take longer as the number of items increases. The algorithms in this repository provide approximate solutions in much less time. 
 
-Table of times?
-
-Problem Setup 
 
 ## Knapsack Instance
 
