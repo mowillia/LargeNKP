@@ -34,7 +34,7 @@ Wlimit = 400
 
 These values are taken from the problem statement in [RossettaCode Knapsack: 0-1](https://rosettacode.org/wiki/Knapsack_problem/0-1)
 
-## Quick Start Up 
+## Running Large N Algorithm
 
 The quickest way to run the algorithm for a first test is to open the notebook `quick_start.ipynb` and execute all the cells. The notebook compares the results of the large N algorithm to those of dynamical programming for the above Knapsack instance. The knapsack algorithms out put lists of 1s and 0s corresponding to putting an item in a knapsack or leaving it out. To get results for the large N algorithm solution alone run the following code. 
 
