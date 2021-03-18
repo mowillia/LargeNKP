@@ -4,7 +4,7 @@
 <img align = "center" src = "https://user-images.githubusercontent.com/8810308/111638380-a53b3400-87d0-11eb-9407-78a613cdd922.png"  onmouseover= "Motivation for statistical physics based algorithm" width = "75%">
 </p>
 
-The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem [1], we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
+The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem, we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
 This repository provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. Currently the libary supports approximate solutions to the "0-1", "bounded", and "unbounded" versions of the problem. 
 
@@ -204,8 +204,6 @@ The notebooks that reproduce the figures in the paper are as follows
 - `potential_landscape.ipynb`: Reproduces Figure 2(a); Runs in < 1 minute
 - `total_value_vs_temperature.ipynb`: Reproduces Figure 2(b); Runs in < 1 minute
 - `algorithm_comparisons.ipynb`: Reproduces Figure 3; Runs in 15 minutes
-- `limit_ratio_vs_temperature.ipynb`: Reproduces Figure 4; Runs in < 1 minute
-
 
 
 ## Installation
