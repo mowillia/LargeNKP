@@ -83,7 +83,7 @@ import numpy as np
 plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= 1.5)
 ```
 
-<img align = "center" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "50%">
+<img align = "right" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "40%">
 
 ## Algorithm Comparison Plots
 
@@ -104,8 +104,8 @@ In the original paper, we compare the performance of various classic knapsack pr
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
 ```
-from dp import knapsack01_dpV
 from brute import brute_force
+from dp import knapsack01_dpV
 from fptas import fptas
 from greedy import greedy
 from annealing import simann_knapsack
@@ -117,12 +117,12 @@ from collections import defaultdict
 import time
 
 # dictionary of algorithm names and functions
-algo_name_dict = {'DP': knapsack01_dpV,  
-                 'Brute': brute_force,
-                 'FPTAS': fptas,
-                 'Greedy': greedy,
-                 'Annealing': simann_knapsack,
-                 'Large N': zero_one_algorithm}
+algo_name_dict = {'Brute': brute_force,
+                  'DP': knapsack01_dpV,
+                  'FPTAS': fptas,
+                  'Greedy': greedy,
+                  'Annealing': simann_knapsack,
+                  'Large N': zero_one_algorithm}
 
 # dictionary of algorithm names and results
 results_name_dict = defaultdict(lambda: list())
@@ -144,27 +144,27 @@ tabular_results = []
 for k, v in results_name_dict.items():
     tabular_results.append(v) 
 
-print(tabulate(tabular_results, ["Algorithm", "Value", "W", "Time (sec)"], tablefmt="grid"))
+print(tabulate(tabular_results, ["Algorithm", "Value", "Weight", "Time (sec)"], tablefmt="grid"))
 ```
 
 ```
 >>>
 Stopping annealing because error tolerance was reached
-+-------------+---------+-----+--------------+
-| Algorithm   |   Value |   W |   Time (sec) |
-+=============+=========+=====+==============+
-| DP          |    1030 | 396 |      0.00695 |
-+-------------+---------+-----+--------------+
-| Brute       |    1030 | 396 |     32.3349  |
-+-------------+---------+-----+--------------+
-| FPTAS       |    1030 | 396 |      0.00433 |
-+-------------+---------+-----+--------------+
-| Greedy      |    1030 | 396 |      9e-05   |
-+-------------+---------+-----+--------------+
-| Annealing   |     957 | 379 |      0.14111 |
-+-------------+---------+-----+--------------+
-| Large N     |    1030 | 396 |      0.00086 |
-+-------------+---------+-----+--------------+
++-------------+---------+-----------+--------------+
+| Algorithm   |   Value |   Weight  |   Time (sec) |
++=============+=========+===========+==============+
+| Brute       |    1030 |       396 |     33.0739  |
++-------------+---------+-----------+--------------+
+| DP          |    1030 |       396 |      0.00488 |
++-------------+---------+-----------+--------------+
+| FPTAS       |    1030 |       396 |      0.00396 |
++-------------+---------+-----------+--------------+
+| Greedy      |    1030 |       396 |      8e-05   |
++-------------+---------+-----------+--------------+
+| Annealing   |     920 |       387 |      0.13638 |
++-------------+---------+-----------+--------------+
+| Large N     |    1030 |       396 |      0.00107 |
++-------------+---------+-----------+--------------+
 
 ```
 
