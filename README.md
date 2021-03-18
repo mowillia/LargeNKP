@@ -83,7 +83,7 @@ import numpy as np
 plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= 1.5)
 ```
 
-<img align = "right" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "40%">
+<img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111629285-84221580-87c7-11eb-9486-6828c446040d.png" width = "40%">
 
 ## Algorithm Comparison Plots
 
