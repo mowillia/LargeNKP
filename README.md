@@ -197,9 +197,9 @@ Example
 Notes: Although these algorithms are analytically based on a large N approximation, Python has bounds on the size of integers it can process. Thus when the unbounded knapsack problem estimates C (the implicit bound on the number of items in the knapsack; see corresponding section in paper for a discussion) the value it results in could lead to an overflow error. 
 
 
-## Paper Reproduction
+## Reproducing figures from paper
 
-The notebooks that reproduct the figures in the paper are as follows
+The notebooks that reproduce the figures in the paper are as follows
 
 - `potential_landscape.ipynb`: Reproduces Figure 2(a); Runs in < 1 minute
 - `total_value_vs_temperature.ipynb`: Reproduces Figure 2(b); Runs in < 1 minute
