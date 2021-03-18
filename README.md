@@ -95,9 +95,9 @@ from plots import plot_value_vs_temp
 plot_value_vs_temp(weights = weight_vec, values = value_vec, limit = Wlimit, temp_low=1.0, temp_high = 60.0)
 >>>
 ```
-
+<p align="center">
 <img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111657616-fd2e6680-87e1-11eb-8077-cd7ed1f25c29.png" width = "40%">
-
+</p>
 
 ## Algorithm comparison plots
 
@@ -198,9 +198,10 @@ Notes: Although these algorithms are analytically based on a large N approximati
 
 The notebooks that reproduct the figures in the paper are as follows
 
-- `potential_landscape.ipynb`: Reproduces Figure 2; Runs in < 1 minute
+- `potential_landscape.ipynb`: Reproduces Figure 2(a); Runs in < 1 minute
+- `total_value_vs_temperature.ipynb`: Reproduces Figure 2(b); Runs in < 1 minute
 - `algorithm_comparisons.ipynb`: Reproduces Figure 3; Runs in 15 minutes
-- ``: Reproduces Figure 4
+- `limit_ratio_vs_temperature`: Reproduces Figure 4; Runs in < 1 minute
 
 
 
