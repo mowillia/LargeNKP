@@ -201,6 +201,7 @@ The notebooks that reproduce the figures in the paper are as follows
 - `potential_landscape.ipynb`: Reproduces Figure 2(a); Runs in < 1 minute
 - `total_value_vs_temperature.ipynb`: Reproduces Figure 2(b); Runs in < 1 minute
 - `algorithm_comparisons.ipynb`: Reproduces Figure 3; Runs in 15 minutes
+- `limit_ratio_vs_temperature.ipynb`: Reproduces Table 1; Runs in < 1 minute
 
 
 ## Installation
