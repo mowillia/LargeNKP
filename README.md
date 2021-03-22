@@ -244,9 +244,9 @@ This solution over-estimates the actual optimum because it did not respect the w
 Notes: Although these algorithms are analytically based on a large N approximation, Python has bounds on the size of integers it can process. Thus often using the bounded algorithm (with variables raised to an extra power of the bound), results in an overflow eror.
 
 
-## Reproducing figures from paper
+## Reproducing figures and tables
 
-The notebooks that reproduce the figures in the paper are as follows
+The notebooks that reproduce the figures and tables in the paper are as follows
 
 - [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 2(a); Runs in < 1 minute
 - [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 2(b); Runs in < 1 minute
