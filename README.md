@@ -248,11 +248,11 @@ Notes: Although these algorithms are analytically based on a large N approximati
 
 The notebooks that reproduce the figures in the paper are as follows
 
-- `potential_landscape.ipynb`: Reproduces Figure 2(a); Runs in < 1 minute
-- `total_value_vs_temperature.ipynb`: Reproduces Figure 2(b); Runs in < 1 minute
-- `algorithm_comparisons.ipynb`: Reproduces Figure 3; Runs in 15 minutes
-- `limit_ratio_vs_temperature.ipynb`: Reproduces Table 1; Runs in < 1 minute
-- `failure_modes.ipynb`: Gives examples of "Failure Modes" discussed in Appendix
+- [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 2(a); Runs in < 1 minute
+- [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 2(b); Runs in < 1 minute
+- [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 3; Runs in 15 minutes
+- [`limit_ratio_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/limit_ratio_vs_temperature.ipynb): Reproduces Table 1; Runs in < 1 minute
+- [`failure_modes.ipynb`](https://github.com/mowillia/largeNKP/blob/main/failure_modes.ipynb): Gives examples of "Failure Modes" discussed in Appendix
 
 
 ## References
