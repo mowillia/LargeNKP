@@ -1,5 +1,3 @@
-*Work completed in [Jellyfish Research](https://jellyfish.co/).*
-
 # Large N Limit of Knapsack Problem
 
 <p align="center">
