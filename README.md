@@ -1,3 +1,5 @@
+*Work completed as part of [Jellyfish](https://jellyfish.co/) Research.*
+
 # Large N Limit of Knapsack Problem
 
 <p align="center">
@@ -253,6 +255,7 @@ The notebooks that reproduce the figures and tables in the paper are as follows
 - [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 3; Runs in 15 minutes
 - [`limit_ratio_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/limit_ratio_vs_temperature.ipynb): Reproduces Table 1; Runs in < 1 minute
 - [`failure_modes.ipynb`](https://github.com/mowillia/largeNKP/blob/main/failure_modes.ipynb): Gives examples of "Failure Modes" discussed in Appendix
+
 
 
 <!---
