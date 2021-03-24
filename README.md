@@ -257,12 +257,12 @@ The notebooks that reproduce the figures and tables in the paper are as follows
 - [`failure_modes.ipynb`](https://github.com/mowillia/largeNKP/blob/main/failure_modes.ipynb): Gives examples of "Failure Modes" discussed in Appendix
 
 
-
+<!---
 ## References
 [1] Mobolaji Williams. "Large N Limit of the Knapsack Problem." *Journal Name.* 2021. [[arxiv]](https://arxiv.org/abs/XXXX)
-
+--->
 ---
-
+<!---
 If you found this repository useful in your research, please consider citing
 ```
 @article{williams2021knapsack,
@@ -272,3 +272,4 @@ If you found this repository useful in your research, please consider citing
   year={2021}
 }
 ```
+--->
