@@ -1,4 +1,4 @@
-*Work completed as part of [Jellyfish](https://jellyfish.co/) Research.*
+*Work completed in [Jellyfish](https://jellyfish.co/) Research.*
 
 # Large N Limit of Knapsack Problem
 
