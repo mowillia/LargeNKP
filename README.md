@@ -104,7 +104,7 @@ plot_value_vs_temp(weights = weight_vec, values = value_vec, limit = Wlimit, tem
 
 ## Algorithm comparison plots
 
-In the original paper, we compare the performance of various classic knapsack problem algorithms to the proposed algorithm. The algorithms we compare are
+In the original paper, we compare the performance of various classic knapsack problem algorithms to the proposed algorithm. The algorithms (contained in `classic_algos`) we compare are
 
 - **Brute Force**(`brute_force`): Involves listing all possible combinations of items, computing the total weights and total values of each combination and selecting the combination with the highest value with a weight below the stated limit. 
 
@@ -250,11 +250,11 @@ Notes: Although these algorithms are analytically based on a large N approximati
 
 The notebooks that reproduce the figures and tables in the paper are as follows
 
-- [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 2(a); Runs in < 1 minute
-- [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 2(b); Runs in < 1 minute
-- [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 3; Runs in 15 minutes
-- [`limit_ratio_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/limit_ratio_vs_temperature.ipynb): Reproduces Table 1; Runs in < 1 minute
-- [`failure_modes.ipynb`](https://github.com/mowillia/largeNKP/blob/main/failure_modes.ipynb): Gives examples of "Failure Modes" discussed in Appendix
+- [`potential_landscape.ipynb`](https://nbviewer.jupyter.org/github/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 2(a); Runs in < 1 minute
+- [`total_value_vs_temperature.ipynb`](https://nbviewer.jupyter.org/github/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 2(b); Runs in < 1 minute
+- [`algorithm_comparisons.ipynb`](https://nbviewer.jupyter.org/github/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 3; Runs in 15 minutes
+- [`limit_ratio_vs_temperature.ipynb`](https://nbviewer.jupyter.org/github/mowillia/largeNKP/blob/main/limit_ratio_vs_temperature.ipynb): Reproduces Table 1; Runs in < 1 minute
+- [`failure_modes.ipynb`](https://nbviewer.jupyter.org/github/mowillia/largeNKP/blob/main/failure_modes.ipynb): Gives examples of "Failure Modes" discussed in Appendix
 
 
 
