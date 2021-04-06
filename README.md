@@ -106,15 +106,15 @@ plot_value_vs_temp(weights = weight_vec, values = value_vec, limit = Wlimit, tem
 
 In the original paper, we compare the performance of various classic knapsack problem algorithms to the proposed algorithm. The algorithms (contained in `classic_algos`) we compare are
 
-- **Brute Force**(`brute_force`): Involves listing all possible combinations of items, computing the total weights and total values of each combination and selecting the combination with the highest value with a weight below the stated limit. 
+- **Brute Force**(`brute_force`): Involves listing all possible combinations of items, computing the total weights and total values of each combination and selecting the combination with the highest value with a weight below the stated limit
 
 - **Dynamical Programming Solution**(`knapsack_dpV`):  Standard iterative solution to the problem which involves storing sub-problem solutions in matrix elements
 
 - **Fully Polynomial Time Approximate Solution (FPTAS)**(`fptas`):  Algorithm that is polynomial time in the number of elements and which has a tunable accuracy
 
-- **Greedy Algorithm**(`greedy`):  Involves computing the ratio of weights to volumes for each object and filling in the collection until the max weight is reached. 
+- **Greedy Algorithm**(`greedy`):  Involves computing the ratio of weights to volumes for each object and filling in the collection until the max weight is reached
 
-- **Simulated Annealing**(`simannl_knapsack`):   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures. 
+- **Simulated Annealing**(`simannl_knapsack`):   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures
 
 - **Large N Algorithm**(`zero_one_algorithm`):  Algorithm based on statistical physics representation of the system
 
