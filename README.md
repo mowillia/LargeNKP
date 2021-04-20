@@ -18,7 +18,7 @@ There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](ht
 The following examples are taken from the [`example.ipynb`](https://nbviewer.jupyter.org/github/mowillia/LargeNKP/blob/main/example.ipynb) file. Run the entire file to reproduce all of the results below. 
 
 In the following examples (up to Knapsack Problem Variation), we will use the item list, weights, values, and weight limits given as follows.
-```
+```python
 import numpy as np
 
 items = (
@@ -43,7 +43,7 @@ These values are taken from the problem statement in [RossettaCode Knapsack: 0-1
 
 Given weights, values, and a limit, the large N algorithm outputs a list of 1s and 0 correspon algorithm corresponding to putting the respective item in the list in the knapsack or leaving it out. To quickly run the algorithm, execute the following code after defining the item list above.
 
-```
+```python
 from largeN_algo import zero_one_algorithm
 
 soln = zero_one_algorithm(weights = weight_vec, values = value_vec, limit = Wlimit)
@@ -52,7 +52,7 @@ for k in range(len(soln)):
         print(items[k][0])
 ```
 
-```
+```python
 >>>
 map
 compass
@@ -73,12 +73,12 @@ To apply the problem to other instances of items, values, and weights, just repl
 ## Plotting potential function
 
 The potential function for the zero-one problem is 
-```
+```python
 FN_zero_one = lambda z, weights, values, limit, T: - limit*np.log(z)-np.log(1-z) + np.sum(np.log(1+z**(weights)*np.exp(values/T)))
 ```
 This function gives a continuous representation of the standard discrete optimization objective. If the function has a local minimum, then the large N algorithm can solve the knapsack problem. This minimum depends on temperature, and as the temperature is lowered the minimum better defines an optimal solution for the knapsack problem. To plot the potential function for the above instance, execute the following code. 
 
-```
+```python
 from largeN_algo import plot_potential_zero_one
 
 plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit, T= 1.5)
@@ -92,7 +92,7 @@ plot_potential_zero_one(weights = weight_vec, values = value_vec, limit = Wlimit
 
 To plot the calculated total value as a function of temperature, execute the following code
 
-```
+```python
 from largeN_algo import plot_value_vs_temp
 
 plot_value_vs_temp(weights = weight_vec, values = value_vec, limit = Wlimit, temp_low=1.0, temp_high = 60.0)
@@ -121,7 +121,7 @@ In the original paper, we compare the performance of various classic knapsack pr
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
 Assembling needed algorithms and modules
-```
+```python
 from classic_algos import (brute_force, 
                            knapsack01_dpV, 
                            fptas, 
@@ -135,7 +135,7 @@ from collections import defaultdict
 import time
 ```
 Defining dictionary of algorithms and empty dictionary for results
-```
+```python
 # dictionary of algorithm names and functions
 algo_name_dict = {'Brute': brute_force,
                   'DP': knapsack01_dpV,
@@ -148,7 +148,7 @@ algo_name_dict = {'Brute': brute_force,
 results_name_dict = dict()
 ```
 Running algorithm and creating table of results
-```
+```python
 for name, func in algo_name_dict.items():
     start_clock = time.time()
     soln  = func(weights = weight_vec, values = value_vec, limit = Wlimit)
@@ -167,7 +167,7 @@ for k, v in results_name_dict.items():
     tabular_results.append(v) 
 ```
 Printing Table
-```
+```python
 print(tabulate(tabular_results, ["Algorithm", "Value", "Weight", "Time (sec)"], tablefmt="grid"))
 >>>
 +-------------+---------+-----------+--------------+
@@ -193,7 +193,7 @@ print(tabulate(tabular_results, ["Algorithm", "Value", "Weight", "Time (sec)"], 
 
 Repository includes code for two variations of the knapsack problem: The unbounded and the bounded knapsack problems. Their implementations are identical to the implementation for the `zero_one_algorithm` except the bounded knapsack problem takes the additional argument of "bounds". The following problem instance is from [RossettaCode Knapsack: Bounded](https://rosettacode.org/wiki/Knapsack_problem/Bounded#Dynamic_programming_solution_2)
 
-```
+```python
 from largeN_algo import bounded_algorithm
 import numpy as np
 
@@ -223,7 +223,7 @@ print('Total Weight: %i' % (np.dot(soln, weight_vec)))
 ```
 With the result
 
-```
+```python
 >>>
 Item: Item #
 -----------
