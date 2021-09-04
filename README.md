@@ -258,19 +258,18 @@ The notebooks that reproduce the figures and tables in the paper are as follows
 
 
 
-<!---
 ## References
-[1] Mobolaji Williams. "Large N Limit of the Knapsack Problem." *Journal Name.* 2021. [[arxiv]](https://arxiv.org/abs/XXXX)
---->
+[1] Mobolaji Williams. "Large N Limit of the Knapsack Problem." *Journal Name.* 2021. [[arxiv]](https://arxiv.org/abs/2107.14080)
+
 ---
-<!---
+
 If you found this repository useful in your research, please consider citing
 ```
-@article{williams2021knapsack,
-  title={Large N Limit of the Knapsack Problem},
+@article{williams2021large,
+  title={Large N limit of the knapsack problem},
   author={Williams, Mobolaji},
-  journal={arXiv preprint arXiv:CCC},
+  journal={arXiv preprint arXiv:2107.14080},
   year={2021}
 }
 ```
---->
+
