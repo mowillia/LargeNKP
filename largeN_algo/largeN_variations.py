@@ -132,7 +132,7 @@ def bounded_algorithm(weights, values, bounds, limit, override = False, T = 1.0,
 def unbounded_algorithm(weights, values, limit, T = 1.0, threshold = 0.6):
     
     """
-    Full algorithm for the bounded KP
+    Full algorithm for the unbounded KP
     
     Parameters
     ----------
