@@ -38,9 +38,9 @@ KP_camping = KnapsackProblem(weights = weight_vec, values = value_vec, limit = W
 
 These values are taken from the problem statement in [RossettaCode Knapsack: 0-1](https://rosettacode.org/wiki/Knapsack_problem/0-1)
 
-## Running Large N algorithm
+## Running Large W algorithm
 
-Given weights, values, and a limit, the large N algorithm outputs a list of 1s and 0 correspon algorithm corresponding to putting the respective item in the list in the knapsack or leaving it out. To quickly run the algorithm, execute the following code after defining the item list above.
+Given weights, values, and a limit, the large W algorithm outputs a list of 1s and 0 correspon algorithm corresponding to putting the respective item in the list in the knapsack or leaving it out. To quickly run the algorithm, execute the following code after defining the item list above.
 
 ```
 soln = KP_camping.largeN_algorithm()
