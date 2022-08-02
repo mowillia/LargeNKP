@@ -6,11 +6,6 @@ from scipy.optimize import fsolve, fmin
 import math
 from itertools import combinations
 
-import mpmath as mp
-mp.dps = 30; mp.pretty = True
-
-# defining exponential for high precision calcs
-mp_exp_array = np.frompyfunc(mp.exp, 1, 1)
 
 def anycomb(items):
     ' return combinations of any length from the items '
@@ -40,6 +35,7 @@ def x_selected(x_vals, w_vals, W):
     final_object_list = np.zeros_like(x_vals)
     for _ in range(len(x_vals)):
         new_final_object_list = copy.deepcopy(final_object_list)
+        print(new_final_object_list)
         idx1 = np.argmax(x_vals)
         new_final_object_list[idx1] = 1
         x_vals[idx1] = 0
@@ -49,70 +45,6 @@ def x_selected(x_vals, w_vals, W):
             break
             
     return final_object_list
-
-def find_root(func, num_powers = 20, **args):
-    
-    """
-    Finds the root of a function in the domain (0, 1) exclusive
-
-    Parameters
-    ----------
-    func : function
-        Function for which we are seeking the root
-        
-    num_powers : int
-        Number of powers of 10 to include in final answer
-
-    Returns
-    ----------
-    fin_z : float
-        Value of critical point
-
-    error : float 
-        How far function is from zero at this critical point
-
-    """    
-    
-    powers_10 = np.array([10**(-k) for k in range(num_powers+1)])
-    coeffs = np.zeros_like(powers_10)
-    coeffs[0] = 0
-
-    # determining initial order of current z
-    for i in range(1, num_powers+1):
-        coeffs[i] = 1
-        current_z =  np.dot(coeffs, powers_10)
-        current_sign = np.sign(func(current_z, **args).real)
-        # reset coeffs if sign doesn't change
-        if current_sign > 0:
-            coeffs[i] = 0
-        else:
-            l_start = i
-            break
-            
-    # determine subsequent coefficients
-    for k in range(l_start,num_powers+1):
-
-        # marching up
-        for j in range(10):
-
-            # try a value of the coefficient
-            coeffs[k] = j
-            new_z = np.dot(coeffs, powers_10)
-            new_sign = np.sign(func(new_z,**args).real)  
-
-            # if the sign has changed from the current sign, go to previous value
-            if new_sign > 0:
-                coeffs[k] = j-1 # set to the j value before the change
-                current_z = np.dot(coeffs, powers_10)
-                break
-
-    # final z value
-    fin_z = np.dot(coeffs, powers_10)    
-    
-    # error 
-    error = func(fin_z, **args).real
-    
-    return fin_z, float(error)
 
 def trans_knapsack(x, weights, limit): 
 
@@ -165,7 +97,7 @@ def trans_knapsack(x, weights, limit):
         
         if k == 100:
             
-            raise Exception('Too many selection attempts; Maximum weight appears to be too low to be satisfiable.')
+            raise Exception('Maximum weight is too low to be satisfiable.')
     
     return x_new
 
@@ -290,8 +222,7 @@ class KnapsackProblem:
 
     # derivative of potential function (with z product)    
     def constraint(self, z, T):
-        return -self.limit+ z/(1-z) + np.sum(self.weights/(mp_exp_array(-self.values/T)*mp_exp_array(-self.weights*mp.log(z)) + 1))   
-    
+        return -self.limit+ z/(1-z) + np.sum(self.weights*z**(self.weights)/(np.exp(-self.values/T) +z**(self.weights)))   
 
     # derivative of potential function (with z product)    
     def temp_constraint(self,  T, z):
@@ -310,87 +241,136 @@ class KnapsackProblem:
             return 'Not a Bounded Knapsack Problem'        
         
         return -self.limit+ z/(1-z) + np.sum(self.weights/(z**(-self.weights)*np.exp(-self.values/T) -1 )) - np.sum((self.bounds+1)*self.weights/(z**(-(self.bounds+1)*self.weights)*np.exp(-(self.bounds+1)*self.values/T) - 1))
-             
+        
     
     # consolidating algorithm
-    def largeN_algorithm(self, return_gamma=False, T = None, threshold = 0.75, weight_check = True, verbose = False):
+    def largeN_algorithm(self, x0 = 0.105, T = 1.0, threshold = 0.6, ceiling = True):
 
         """
         Full algorithm for the zero-one KP
 
         Parameters
         ----------
-        return_gamma : Bool
-            Whether to return the value of gamma
-            
-        T : float
-            If not none, we give thresholded values of the average
-            
-        threshold : float
-            Threshold for computing x_soln when T is given
+        
+        x0 : float
+            Starting value for solving constrain equation
 
-        weight_check : bool
-            Checks if solution satisfies weight limit and modifies if it doesn't
+        T : float
+            Temperature for statistical physics system
+
+        threshold : float
+            Limit for rounding to next highest integer
+            
+        ceiling : bool
+            Whether to output the thresholded averages or raw averages
+
+
+        Returns
+        ----------
+        x_soln : array
+            Vector of occupancies
+
+        """    
+        
+        # defaulting to standard problem
+        if self.bounds is None:
+            # solving for z0
+            z0 = fsolve(self.constraint, x0=x0, args = (T,))[0]
+#             z0 = fmin(self.potential, x0=x0, args = (T,),disp=False)[0]
+            
+            # solving for averages
+            x_avgs = self.X_avg_zero_one(z = z0, T= T)
+        else:
+            # solving for z0
+            z0 = fsolve(self.constraint_bounded, x0=x0, args = (T,))[0]
+            # solving for averages
+            x_avgs = self.X_avg_bounded(z = z0, T= T)
+        
+        if ceiling == True:
+            # thresholding averages
+            x_soln = np.abs(np.ceil(x_avgs - threshold))
+        
+        else:
+            x_soln = x_avgs
+
+        return x_soln      
+    
+    # consolidating algorithm
+    def largeN_algorithm_new(self):
+
+        """
+        Full algorithm for the zero-one KP
+
+        Parameters
+        ----------
+
 
         Returns
         ----------
         x_soln : array
             Binary vector of occupancies
-            
-        gamma_val: 
-            Value of gamma (minimum value/weight ratio)
 
         """    
-        
-        if T:
-            # solving for z0
-#             z0, _ = find_root(self.constraint, T=T)
-            z0  = fmin(self.potential, x0=0.09, args = (T,), disp=False)[0]
-            
-            # solving for averages
-            x_avgs = 1/(z0**(-self.weights)*np.exp(-self.values/T) + 1)
-            
-            # including threshold 
-            x_soln = np.heaviside(x_avgs - threshold, 0)
-            
-            # removes marginal values if weight limit is violated
-            if weight_check: 
-                diffs = x_avgs - threshold
-                diffs_mask = diffs>0
-                sorted_masked_diffs = np.sort(diffs*diffs_mask) # differences in ascending order
-                for k in range(len(diffs)):
-                    diff_val = sorted_masked_diffs[k]
-                    if diff_val > 0 and self.limit < np.dot(self.weights, x_soln):
-                        idx = np.where(diffs == diff_val)[0][0]
-                        if verbose: 
-                            print(f'Eliminating object {idx} due to weight violation')
-                        x_soln[idx] = 0            
-        
-        else: 
-            # starting temperature
-            gamma_val = self.gamma_calc()
 
-            # selecting values
-            x_soln = np.heaviside(self.values - gamma_val*self.weights, 1/2)
-            
-            # removes marginal values if weight limit is violated
-            if weight_check: 
-                diffs = self.values - gamma_val*self.weights
-                diffs_mask = diffs>0
-                sorted_masked_diffs = np.sort(diffs*diffs_mask) # differences in ascending order            
-                for k in range(len(diffs)):
-                    diff_val = sorted_masked_diffs[k]
-                    if diff_val > 0 and self.limit < np.dot(self.weights, x_soln):
-                        idx = np.where(diffs == diff_val)[0][0]
-                        if verbose: 
-                            print(f'Eliminating object {idx} due to weight violation')
-                        x_soln[idx] = 0
-                           
-            
+        #starting temperature
+        Tstart = 1/np.max(self.values)
+
+        # finding value of gamma
+        gamma_val = self.gamma_calc(T0 = Tstart)
+        
+        # selecting values
+        x_soln = np.zeros_like(self.values)
+        for k in range(len(x_soln)):
+            x_soln[k] = np.heaviside(self.values[k] - gamma_val*self.weights[k], 0)
+
         return x_soln
 
+        
+    def gamma_calc(self, T0 = 1.5):
+    
+        """
+        Computing limit ratio for weights and values
 
-    def gamma_calc(self):
+        Parameters
+        ----------
+        
+        x0 : float
+            Starting value for solving constrain equation                
+
+        T0 : float
+            Initial temperature for finding gamma
+
+
+        Returns
+        ----------
+        gamma_fin : float
+            Computed minimum value/weight ratio for item to be included 
+            in knapsack
+
+        """   
+    
+        z_res = fmin(self.potential, x0=.01, args = (T0,), disp = False)[0]
+
+        gamma_init = -np.log(z_res)*T0  
+
+        for k in range(1,10000):
+
+            T = T0 - 0.01*k
+            z_res = fmin(self.potential, x0=.01, args = (T,), disp = False)[0]
+            gamma_fin = -np.log(z_res)*T 
+
+            if res2 > 0: 
+                if np.abs(gamma_fin-gamma_init)/np.abs(gamma_init)>0.001:
+                    gamma_init = gamma_fin
+                else: 
+                    return gamma_fin
+            else:
+                print('Negative gamma encountered')
+                break
+
+
+    # consolidating algorithm
+    def limit_ratio(self, x0 = 0.095, T = 1.0, threshold = 0.6):
 
         """
         Computing limit ratio for weights and values
@@ -398,31 +378,31 @@ class KnapsackProblem:
         Parameters
         ----------
         
-        T1, T2 : float
-            Values at which to compute z and infer a slope               
+        x0 : float
+            Starting value for solving constrain equation                
+
+        T : float
+            Temperature for statistical physics system
+
+        threshold : float
+            Limit for rounding to next highest integer
 
 
         Returns
         ----------
-        gamma_zero : float
-            Value of gamma at T=0
+        ratio : float
+            Computed minimum value/weight ratio for item to be included 
+            in knapsack
 
-        """           
+        """    
         
-        # defining temperatures
-#         T1, T2 =1/np.min(self.values), 1.33/np.min(self.values)
-        T1, T2 =.1, .12
-        
-        
-        # calculaint z values
-        z1, _ = find_root(self.constraint, T=T1)
-        z2, _ = find_root(self.constraint, T=T2)
+        # solving for z0
+        z0 = fmin(self.potential, x0=x0, args = (T,), disp=False)[0]
 
-        # computing y intercept
-        gamma_zero =  T2*T1/(T2-T1)*np.log(z2/z1)              
-        
-        return gamma_zero
- 
+        # ratios when threshold isn't 1/2
+        ratios = - T*np.log(z0)+ T*self.weights*np.log((1-threshold)/threshold)
+
+        return ratios    
     
     def plot_potential(self, T=1.0): 
 
@@ -565,7 +545,7 @@ class KnapsackProblem:
         total_value_list = list()
 
         for Tval in Tvals: 
-            soln = self.largeN_algorithm(T = Tval)
+            soln = self.largeN_algorithm(x0 = x0, T = Tval)
             total_value_list.append(np.dot(soln, self.values))    
 
         # figure
