@@ -1,4 +1,4 @@
-# Large N Limit of Knapsack Problem
+# Large W Limit of Knapsack Problem
 
 <p align="center">
 <img align = "center" src = "https://user-images.githubusercontent.com/8810308/111638380-a53b3400-87d0-11eb-9407-78a613cdd922.png"  onmouseover= "Motivation for statistical physics based algorithm" width = "75%">
@@ -6,7 +6,7 @@
 
 The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem, we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
-This repository provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. Currently the libary supports approximate solutions to the "0-1", "bounded", and "unbounded" versions of the problem. 
+This repository provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. 
 
 There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](https://rosettacode.org/wiki/Knapsack_problem), but these take longer as the number of items increases. The algorithms in this repository provide approximate solutions in much less time. 
 
