@@ -13,7 +13,7 @@ There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](ht
 
 ## Knapsack Instance
 
-The following examples are taken from the [`examples_0.ipynb`](https://github.com/mowillia/largeNKP/blob/main/examples_0.ipynb) file. Run the entire file to reproduce all of the results below. 
+The following examples are taken from the [`example_0.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example_0.ipynb) file. Run the entire file to reproduce all of the results below. 
 
 In the following examples (up to Knapsack Problem Variation), we will use the item list, weights, values, and weight limits given as follows.
 ```
