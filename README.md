@@ -6,9 +6,9 @@
 
 The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem, we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
-This repository provides algorithms for solving various incarnations of the  Knapsack Problem in the limit of where the total number of elements is large. 
+This repository contains code for an algorithm that solves this "0-1" problem in the limit where the weight W is large.
 
-There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](https://rosettacode.org/wiki/Knapsack_problem), but these take longer as the number of items increases. The algorithms in this repository provide approximate solutions in much less time. 
+We compare this algorithm with other exact algorithms for the knapsack problem [(RossettaCode Knapsack)](https://rosettacode.org/wiki/Knapsack_problem), which generally proceed in more time. The code and figures in this repository were used to produce the results in the [associated paper](https://arxiv.org/abs/2107.14080).
 
 
 ## Knapsack Instance
