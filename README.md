@@ -110,9 +110,9 @@ In the original paper, we compare the performance of various classic knapsack pr
 
 - **Simulated Annealing**(`simannl_knapsack`):   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures. 
 
-- **Large W Algorithm ($T=0$):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T=0$
+- **Large W Algorithm (T=0):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T=0$
 
-- **Large W Algorithm ($T\neq0$):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T\neq0$
+- **Large W Algorithm (T\=0):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T\neq0$
 
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
@@ -195,10 +195,11 @@ Stopping annealing because error tolerance was reached
 
 The notebooks that reproduce the figures and tables in the paper are as follows
 
-- [`potential_landscape_0.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape_0.ipynb): Reproduces Figure 3(a); Runs in < 1 minute
-- [`total_value_vs_temperature_0.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature_0.ipynb): Reproduces Figure 3(b); Runs in < 1 minute
-- [`algorithm_comparisons_0.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons_0.ipynb): Reproduces Figure 4; Runs in 15 minutes
-- [`linear_gamma_0.ipynb`](https://github.com/mowillia/largeNKP/blob/main/linear_gamma_0.ipynb): Reproduces Figure 2; Runs in < 1 minute
+- [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 3(a); Runs in < 1 minute
+- [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 3(b); Runs in < 1 minute
+- [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 4; Runs in 15 minutes
+- [`linear_gamma.ipynb`](https://github.com/mowillia/largeNKP/blob/main/linear_gamma.ipynb): Reproduces Figure 2; Runs in < 1 minute
+- [`root_finding_algos.ipynb`](https://github.com/mowillia/largeNKP/blob/main/root_finding_algos.ipynb): Now shown in paper; Notebook for testing various root-finding algorithms
 
 
 ## Acknowledgments
