@@ -197,11 +197,12 @@ We see that both large W algorithms yield the correct result, though they are no
 
 The notebooks that reproduce the figures and tables in the paper are as follows
 
+- [`example.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example.ipynb): Not referenced in paper; Example file for the current readme.
 - [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 3(a); Runs in < 1 minute
 - [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 3(b); Runs in < 1 minute
 - [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 4; Runs in 15 minutes
 - [`linear_gamma.ipynb`](https://github.com/mowillia/largeNKP/blob/main/linear_gamma.ipynb): Reproduces Figure 2; Runs in < 1 minute
-- [`root_finding_algos.ipynb`](https://github.com/mowillia/largeNKP/blob/main/root_finding_algos.ipynb): Now shown in paper; Notebook for testing various root-finding algorithms
+- [`root_finding_algos.ipynb`](https://github.com/mowillia/largeNKP/blob/main/root_finding_algos.ipynb): Now referenced in paper; Notebook for testing various root-finding algorithms
 
 
 ## Acknowledgments
