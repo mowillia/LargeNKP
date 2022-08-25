@@ -40,7 +40,7 @@ These values are taken from the problem statement in [RossettaCode Knapsack: 0-1
 
 ## Running Large W algorithm
 
-Given weights, values, and a limit, the large W algorithm outputs a list of 1s and 0 correspon algorithm corresponding to putting the respective item in the list in the knapsack or leaving it out. To quickly run the algorithm, execute the following code after defining the item list above.
+Given weights, values, and a limit, the large W algorithm outputs a list of 1s and 0 corresponding to putting the respective item in the list in the knapsack (output of 1) or leaving said item out (output of 0). From such a list, we can output the final collection of items in the knapsack. To run the algorithm, execute the following code after defining the item list above.
 
 ```
 soln = KP_camping.largeN_algorithm()
@@ -65,12 +65,11 @@ note-case
 sunglasses
 socks
 ```
-
-To apply the problem to other instances of items, values, and weights, just replace the values and weight lists in the quick start up with your chosen lists. 
+This result reproduces the solution given in [RossettaCode Knapsack: 0-1](https://rosettacode.org/wiki/Knapsack_problem/0-1). To apply the algorithm to other knapsack problem instances, replace the values, weights, and limit in the [`example.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example.ipynb) file with the respective quantities for your chosen instance. 
 
 ## Plotting potential function
 
-The potential function for the zero-one problem is 
+The potential function for the zero-one knapsack problem is 
 ```
 FN_zero_one = lambda z, weights, values, limit, T: - limit*np.log(z)-np.log(1-z) + np.sum(np.log(1+z**(weights)*np.exp(values/T)))
 ```
@@ -96,13 +95,15 @@ KP_camping.plot_value_vs_temp(temp_low=1.0, temp_high = 60.0)
 <img align = "middle" src = "https://user-images.githubusercontent.com/8810308/111698215-f5d08280-880c-11eb-8361-330a35755881.png" width = "40%">
 </p>
 
+This plot uses the nonzero-temperature algorithm to compute the object composition for each temperature between `temp_low` and `temp_high` and then computes the total value of that composition. We see that as temperature is lowered, the total value of the collection increases until it presumably has reached its maximum value. 
+
 ## Algorithm comparison plots
 
 In the original paper, we compare the performance of various classic knapsack problem algorithms to the proposed algorithm. The algorithms we compare are
 
 - **Brute Force**(`brute_force`): Involves listing all possible combinations of items, computing the total weights and total values of each combination and selecting the combination with the highest value with a weight below the stated limit. 
 
-- **Dynamical Programming Solution**(`knapsack_dpV`):  Standard iterative solution to the problem which involves storing sub-problem solutions in matrix elements
+- **Dynamical Programming Solution**(`knapsack_dpV`):  Standard recursive solution to the problem which involves storing sub-problem solutions in matrix elements
 
 - **Fully Polynomial Time Approximate Solution (FPTAS)**(`fptas`):  Algorithm that is polynomial time in the number of elements and which has a tunable accuracy
 
@@ -110,9 +111,9 @@ In the original paper, we compare the performance of various classic knapsack pr
 
 - **Simulated Annealing**(`simannl_knapsack`):   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures. 
 
-- **Large W Algorithm (T=0):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T=0$
+- **Large W Algorithm (T=0):**(`largeN_algorithm`)  Algorithm proposed in paper; based on statistical physics representation of the system at $T=0$
 
-- **Large W Algorithm (T\=0):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T\neq0$
+- **Large W Algorithm (T\=0):**(`largeN_algorithm`)  Algorithm proposed in paper; on statistical physics representation of the system at $T\neq0$
 
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
@@ -190,6 +191,7 @@ Stopping annealing because error tolerance was reached
 +----------------+---------+-----------+--------------+
 
 ```
+We see that both large W algorithms yield the correct result, though they are not the fastest algorithms for this instance. 
 
 ## Reproducing figures and tables
 
