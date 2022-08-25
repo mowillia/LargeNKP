@@ -171,36 +171,20 @@ def trans_knapsack(x, weights, limit):
 
 class KnapsackProblem:
     
-    def __init__(self, weights, values, limit, bounds = None):
+    def __init__(self, weights, values, limit):
         self.weights = weights
         self.values = values
         self.limit = limit
-        self.bounds = bounds
         
-        '''
-        Note: For the unbounded knapsack problem we need to insert an 
-        explicit definition of bounds as
         
-        bounds = np.array([int(math.floor(W/w_elem)) for w_elem in weights])
-        '''
         # number of weights must be the same as the number of values
         assert len(self.values) == len(self.weights)    
         
-        # number of bounds must be same as number of values (if there are bounds)
-        if self.bounds is not None:
-            assert len(self.bounds) == len(self.values)   
-        
     def __str__(self):
-        if self.bounds is None:
-            return str(f'<Knapsack Instance, \nWeights:{self.weights},\nValues:{self.values},\nLimit:{self.limit}>')
-        else:
-            return str(f'<Knapsack Instance, \nWeights:{self.weights},\nValues:{self.values},\nLimit:{self.limit},\nBounds:{self.bounds}>')
+        return str(f'<Knapsack Instance, \nWeights:{self.weights},\nValues:{self.values},\nLimit:{self.limit}>')
         
     def __repr__(self):
-        if self.bounds is None:
-            return str(f'<Knapsack Instance, \nWeights:{self.weights},\nValues:{self.values},\nLimit:{self.limit}>')
-        else:
-            return str(f'<Knapsack Instance, \nWeights:{self.weights},\nValues:{self.values},\nLimit:{self.limit},\nBounds:{self.bounds}>')
+        return str(f'<Knapsack Instance, \nWeights:{self.weights},\nValues:{self.values},\nLimit:{self.limit}>')
         
         
     #####
@@ -248,72 +232,19 @@ class KnapsackProblem:
 
         return xvec
     
-    # defining function to produce average x
-    def X_avg_bounded(self, z, T):
-
-        """
-        For the bounded KP
-        Computes the average occupancy for each object given 
-        the solution to the steepest descent condition, model parameters
-        (weights, values, C) and model hyperparameter (T)
-
-        Parameters
-        ----------
-        z : float
-            Solution to steepest descent condition
-
-        T : float
-            Temperature for statistical physics system
-
-        Returns
-        ----------
-        xvec : array
-            Vector of average occupancies
-        """    
-        
-        if self.bounds is None:
-            return 'Not a Bounded Knapsack Problem'
-
-        # empty vector 
-        xvec = np.zeros(len(self.weights)) 
-
-        # filling in averages
-        for k in range(len(self.weights)):
-
-            xvec[k] = np.exp(self.values[k]/T)/(z**(-self.weights[k]) - np.exp(self.values[k]/T)) - (self.bounds[k]+1)*np.exp((self.bounds[k]+1)*self.values[k]/T)/(z**(-(self.bounds[k]+1)*self.weights[k]) - np.exp((self.bounds[k]+1)*self.values[k]/T))
-
-        return xvec    
     
     # potential function for zero-one problem
     def potential(self, z, T):
         return - self.limit*np.log(z)-np.log(1-z) + np.sum(np.log(1+z**(self.weights)*np.exp(self.values/T)))
 
+    
     # derivative of potential function (with z product)    
     def constraint(self, z, T):
         return -self.limit+ z/(1-z) + np.sum(self.weights/(mp_exp_array(-self.values/T)*mp_exp_array(-self.weights*mp.log(z)) + 1))   
     
-
-    # derivative of potential function (with z product)    
-    def temp_constraint(self,  T, z):
-        return -self.limit+ z/(1-z) + np.sum(self.weights*z**(self.weights)/(np.exp(-self.values/T) +z**(self.weights)))      
- 
-    # potential function for bounded problem
-    def potential_bounded(self, z, T):
-        if self.bounds is None:
-            return 'Not a Bounded Knapsack Problem'        
-        
-        return - self.limit*np.log(z)-np.log(1-z)+np.sum(np.log(1-z**((self.bounds+1)*self.weights)*np.exp((self.bounds+1)*self.values/T))) - np.sum(np.log(1-z**(self.weights)*np.exp(self.values/T)))
-
-    # derivative of potential function for bounded problem (with z product)    
-    def constraint_bounded(self, z, T):
-        if self.bounds is None:
-            return 'Not a Bounded Knapsack Problem'        
-        
-        return -self.limit+ z/(1-z) + np.sum(self.weights/(z**(-self.weights)*np.exp(-self.values/T) -1 )) - np.sum((self.bounds+1)*self.weights/(z**(-(self.bounds+1)*self.weights)*np.exp(-(self.bounds+1)*self.values/T) - 1))
-             
     
     # consolidating algorithm
-    def largeN_algorithm(self, return_gamma=False, T = None, threshold = 0.75, weight_check = True, verbose = False):
+    def largeW_algorithm(self, return_gamma=False, T = None, threshold = 0.75, weight_check = False, verbose = False):
 
         """
         Full algorithm for the zero-one KP
@@ -344,7 +275,6 @@ class KnapsackProblem:
         
         if T:
             # solving for z0
-#             z0, _ = find_root(self.constraint, T=T)
             z0  = fmin(self.potential, x0=0.09, args = (T,), disp=False)[0]
             
             # solving for averages
@@ -410,8 +340,8 @@ class KnapsackProblem:
         """           
         
         # defining temperatures
-#         T1, T2 =1/np.min(self.values), 1.33/np.min(self.values)
-        T1, T2 =.1, .12
+        ##  T1, T2 =1/np.min(self.values), 1.33/np.min(self.values) #(Alternative choice)
+        T1, T2 = 0.1, 0.12
         
         
         # calculaint z values
@@ -565,7 +495,7 @@ class KnapsackProblem:
         total_value_list = list()
 
         for Tval in Tvals: 
-            soln = self.largeN_algorithm(T = Tval)
+            soln = self.largeW_algorithm(T = Tval)
             total_value_list.append(np.dot(soln, self.values))    
 
         # figure
