@@ -13,7 +13,7 @@ There are exact algorithms for the knapsack problem [(RossettaCode Knapsack)](ht
 
 ## Knapsack Instance
 
-The following examples are taken from the [`example_0.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example_0.ipynb) file. Run the entire file to reproduce all of the results below. 
+The following examples are taken from the [`example.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example.ipynb) file. Run the entire file to reproduce all of the results below. 
 
 In the following examples, we will use the item list, weights, values, and weight limits given as follows.
 ```
@@ -110,7 +110,9 @@ In the original paper, we compare the performance of various classic knapsack pr
 
 - **Simulated Annealing**(`simannl_knapsack`):   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures. 
 
-- **Large N Algorithm**(`zero_one_algorithm`):  Algorithm based on statistical physics representation of the system
+- **Large W Algorithm ($T=0$):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T=0$
+
+- **Large W Algorithm ($T\neq0$):**(`largeN_algorithm`)  Algorithm based on statistical physics representation of the system at $T\neq0$
 
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
@@ -136,7 +138,8 @@ algo_name_dict = {'Brute': KP_camping.brute_force,
                   'FPTAS': KP_camping.fptas,
                   'Greedy': KP_camping.greedy,
                   'Annealing': KP_camping.simann_knapsack,
-                  'Large N': KP_camping.largeN_algorithm}
+                  'Large W (T=0)': KP_camping.largeW_algorithm,
+                  'Large W (T/=0)': KP_camping.largeW_algorithm}
 
 # dictionary of algorithm names and results
 results_name_dict = defaultdict(lambda: list())
@@ -145,7 +148,10 @@ Running algorithm and creating table of results
 ```
 for name, func in algo_name_dict.items():
     start_clock = time.time()
-    soln  = func()
+    if name == 'Large W (T/=0)':
+        soln = func(T=1.0)
+    else:    
+        soln = func()    
     
     # calculating values
     tot_value = str(round(np.dot(value_vec, soln), 0))
@@ -165,21 +171,23 @@ Printing Table
 print(tabulate(tabular_results, ["Algorithm", "Value", "Weight", "Time (sec)"], tablefmt="grid"))
 >>>
 Stopping annealing because error tolerance was reached
-+-------------+---------+-----------+--------------+
-| Algorithm   |   Value |   Weight  |   Time (sec) |
-+=============+=========+===========+==============+
-| Brute       |    1030 |       396 |     17.5572  |
-+-------------+---------+-----------+--------------+
-| DP          |    1030 |       396 |      0.00294 |
-+-------------+---------+-----------+--------------+
-| FPTAS       |    1030 |       396 |      0.00204 |
-+-------------+---------+-----------+--------------+
-| Greedy      |    1030 |       396 |      6e-05   |
-+-------------+---------+-----------+--------------+
-| Annealing   |     915 |       393 |      0.06022 |
-+-------------+---------+-----------+--------------+
-| Large N     |    1030 |       396 |      0.05974 |
-+-------------+---------+-----------+--------------+
++----------------+---------+-----------+--------------+
+| Algorithm      |   Value |   Weight  |   Time (sec) |
++================+=========+===========+==============+
+| Brute          |    1030 |       396 |     18.2886  |
++----------------+---------+-----------+--------------+
+| DP             |    1030 |       396 |      0.00418 |
++----------------+---------+-----------+--------------+
+| FPTAS          |    1030 |       396 |      0.00532 |
++----------------+---------+-----------+--------------+
+| Greedy         |    1030 |       396 |      8e-05   |
++----------------+---------+-----------+--------------+
+| Annealing      |     857 |       396 |      0.07015 |
++----------------+---------+-----------+--------------+
+| Large W (T=0)  |    1030 |       396 |      0.0603  |
++----------------+---------+-----------+--------------+
+| Large W (T/=0) |    1030 |       396 |      0.00362 |
++----------------+---------+-----------+--------------+
 
 ```
 
