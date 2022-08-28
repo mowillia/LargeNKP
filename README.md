@@ -113,7 +113,7 @@ In the original paper, we compare the performance of various classic knapsack pr
 
 - **Large W Algorithm (T=0):**(`largeN_algorithm`)  Algorithm proposed in paper; based on statistical physics representation of the system at $T=0$
 
-- **Large W Algorithm (T\=0):**(`largeN_algorithm`)  Algorithm proposed in paper; on statistical physics representation of the system at $T\neq0$
+- **Large W Algorithm (T\=0):**(`largeN_algorithm`)  Algorithm proposed in paper; on statistical physics representation of the system at $T \neq 0$
 
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
