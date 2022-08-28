@@ -111,9 +111,9 @@ In the original paper, we compare the performance of various classic knapsack pr
 
 - **Simulated Annealing**(`simannl_knapsack`):   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures. 
 
-- **Large W Algorithm (T=0):**(`largeN_algorithm`)  Algorithm proposed in paper; based on statistical physics representation of the system at $T=0$
+- **Large W Algorithm (T=0):**(`largeW_algorithm`)  Algorithm proposed in paper; based on statistical physics representation of the system at $T=0$
 
-- **Large W Algorithm (T\=0):**(`largeN_algorithm`)  Algorithm proposed in paper; on statistical physics representation of the system at $T \neq 0$
+- **Large W Algorithm (T\=0):**(`largeW_algorithm`)  Algorithm proposed in paper; on statistical physics representation of the system at $T \neq 0$
 
 A quick comparison of these algorithms for the problem instance shown above is given by the following code. 
 
