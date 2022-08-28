@@ -193,7 +193,7 @@ Stopping annealing because error tolerance was reached
 ```
 We see that both large W algorithms yield the correct result, though they are not the fastest algorithms for this instance. 
 
-## Reproducing figures and tables
+## Notebooks associated with paper
 
 The notebooks that reproduce the figures and tables in the paper are as follows
 
@@ -203,6 +203,7 @@ The notebooks that reproduce the figures and tables in the paper are as follows
 - [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 4; Runs in 15 minutes
 - [`linear_gamma.ipynb`](https://github.com/mowillia/largeNKP/blob/main/linear_gamma.ipynb): Reproduces Figure 2; Runs in < 1 minute
 - [`root_finding_algos.ipynb`](https://github.com/mowillia/largeNKP/blob/main/root_finding_algos.ipynb): Now referenced in paper; Notebook for testing various root-finding algorithms
+- [`dynamic_partition_function.ipynb`] (https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_function.ipynb): Shows how to use dynamic programming to compute the partition function and solution of KP
 
 
 ## Acknowledgments
