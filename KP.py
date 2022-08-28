@@ -186,9 +186,53 @@ class KnapsackProblem:
     def __repr__(self):
         return str(f'<Knapsack Instance, \nWeights:{self.weights},\nValues:{self.values},\nLimit:{self.limit}>')
         
+    #####
+    # Exact Partition Function Calculation
+    #####
+    
+    def exact_z_algorithm(self, rounded=True):
+        """
+        Computes the exact partition function for the KP 
+        using dynamical programming and then uses this solution
+        to write the solution to the KP.
+
+        """
+
+        # defining temperature as a relatively low value
+        T = 1.0
+
+        # item number and weight limit
+        N, W = len(self.weights), self.limit
+
+        # defining empty partition function matrix
+        Z = [[1 for x in range(W + 1)] for q in range(N + 1)]
+
+        # implementing recursion identity 
+        for i in range(1, N + 1):
+            wt, val = self.weights[i-1], self.values[i-1]
+            for w in range(1, W + 1):                
+                if w < wt:
+                    Z[i][w] = Z[i-1][w]                   
+                else:                     
+                    # partition function identity 
+                    Z[i][w] = Z[i-1][w] + mp.exp(val/T)*Z[i-1][w-wt]         
+            
+        # computing occupancy vector
+        occupancy = [0]*N
+        w = W
+        for j in range(N, 0, -1):
+            # using X_j definition with simple half threshold
+            was_added = 1 - Z[j-1][w]/Z[j][w] > 0.5
+
+            if was_added:
+                occupancy[j-1] = 1
+                w -= self.weights[j-1]
+
+        return occupancy 
+        
         
     #####
-    # Large N Algorithms: Zero-One and Bounded
+    # Large W Algorithms: Zero-One
     #####        
         
     # defining function to produce average x
@@ -593,39 +637,40 @@ class KnapsackProblem:
 
     def knapsack01_dpV(self):
         '''
-        Dynamical programming solution to knapsack problem
+        Dynamic programming solution to knapsack problem
         Table elements are values
         '''
 
-        n = len(self.values)
+        N, W = len(self.values), self.limit
 
-        V = [[0 for w in range(self.limit + 1)] for j in range(n + 1)]
-
-        for j in range(1, n + 1):
+        V = [[0 for w in range(W + 1)] for j in range(N + 1)]
+        
+        # computing value matrix
+        for j in range(1, N + 1):
             wt, val = self.weights[j-1], self.values[j-1]
-            for w in range(1, self.limit + 1):
+            for w in range(1, W + 1):
                 if w< wt:
                     V[j][w] = V[j-1][w]
                 else:
-                    V[j][w] = max(V[j-1][w],
-                                      V[j-1][w-wt] + val)
-
-        results = [0]*n
-        w = self.limit
-        for j in range(n, 0, -1):
+                    V[j][w] = max(V[j-1][w], V[j-1][w-wt] + val)
+        
+        # computing occupancy vector
+        occupancy = [0]*N
+        w = W
+        for j in range(N, 0, -1):
             was_added = V[j][w] != V[j-1][w]
 
             if was_added:
-                results[j-1] = 1
+                occupancy[j-1] = 1
                 w -= self.weights[j-1]
 
-        return results
+        return occupancy
 
 
 
     def knapsack01_dpW(self, weights=None, values=None, limit=None):
         '''
-        Dynamical programming solution to knapsack problem
+        Dynamic programming solution to knapsack problem
         Table elements are weights
         '''
 
@@ -655,16 +700,16 @@ class KnapsackProblem:
 
         OPT = max([v for v in range(Vmax) if W[n][v] <= limit])
 
-        results = [0]*n
+        occupancy = [0]*n
         v = OPT
         for i in range(n, 0, -1):
             wt, val = weights[i-1], values[i-1]
             if val <= v:
                 if wt + W[i-1][v-val]< W[i-1][v]:
-                    results[i-1] = 1
+                    occupancy[i-1] = 1
                     v = v - val
 
-        return results
+        return occupancy
 
 
     def fptas(self, epsilon = 0.5):
