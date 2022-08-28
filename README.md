@@ -43,7 +43,7 @@ These values are taken from the problem statement in [RossettaCode Knapsack: 0-1
 Given weights, values, and a limit, the large W algorithm outputs a list of 1s and 0 corresponding to putting the respective item in the list in the knapsack (output of 1) or leaving said item out (output of 0). From such a list, we can output the final collection of items in the knapsack. To run the algorithm, execute the following code after defining the item list above.
 
 ```
-soln = KP_camping.largeN_algorithm()
+soln = KP_camping.largeW_algorithm()
 for k in range(len(soln)):
     if soln[k] == 1:
         print(items[k][0])
