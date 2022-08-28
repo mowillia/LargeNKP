@@ -193,17 +193,22 @@ Stopping annealing because error tolerance was reached
 ```
 We see that both large W algorithms yield the correct result, though they are not the fastest algorithms for this instance. 
 
-## Notebooks associated with paper
+## Jupyter notebooks associated with paper
 
 The notebooks that reproduce the figures and tables in the paper are as follows
 
-- [`example.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example.ipynb): Not referenced in paper; Example file for the current readme.
+
+**Main Notebooks**
 - [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 3(a); Runs in < 1 minute
 - [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 3(b); Runs in < 1 minute
 - [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 4; Runs in 15 minutes
 - [`linear_gamma.ipynb`](https://github.com/mowillia/largeNKP/blob/main/linear_gamma.ipynb): Reproduces Figure 2; Runs in < 1 minute
-- [`root_finding_algos.ipynb`](https://github.com/mowillia/largeNKP/blob/main/root_finding_algos.ipynb): Now referenced in paper; Notebook for testing various root-finding algorithms
-- [`dynamic_partition_function.ipynb`] (https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_function.ipynb): Shows how to use dynamic programming to compute the partition function and solution of KP
+
+**Additional Notebooks**
+- [`example.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example.ipynb): Not referenced in paper; Example file for the current readme.
+- [`root_finding_algos.ipynb`](https://github.com/mowillia/largeNKP/blob/main/root_finding_algos.ipynb): Not referenced in paper; Notebook for testing various root-finding algorithms
+- [`dynamic_partition_function.ipynb`] (https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_function.ipynb): Referenced in Section 2; Shows how to use dynamic programming to compute the partition function and solution of KP
+- [`dynamic_partition_comparisons.ipynb`] (https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_comparisons.ipynb): Referenced in Section 2; Compares the accuracy and computation time of the exact partition function solution to the KP and the dynamic programing solution to the KP
 
 
 ## Acknowledgments
