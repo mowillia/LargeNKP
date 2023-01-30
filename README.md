@@ -219,8 +219,9 @@ The notebooks that reproduce the figures and tables in the paper are as follows
 **Additional Notebooks**
 - [`example.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example.ipynb): Not referenced in paper; Example file for the current readme.
 - [`root_finding_algos.ipynb`](https://github.com/mowillia/largeNKP/blob/main/root_finding_algos.ipynb): Not referenced in paper; Notebook for testing various root-finding algorithms
-- [`dynamic_partition_function.ipynb`](https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_function.ipynb): Referenced in Section 2; Shows how to use dynamic programming to compute the partition function and solution of KP
-- [`dynamic_partition_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_comparisons.ipynb): Referenced in Section 2; Compares the accuracy and computation time of the exact partition function solution to the KP and the dynamic programing solution to the KP
+- [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Not referenced in paper; Applies algorithms to easy instance of the KP
+- [`dynamic_partition_function.ipynb`](https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_function.ipynb): Not referenced in paper;  Shows how to use dynamic programming to compute the partition function and solution of KP for easy instance
+- [`dynamic_partition_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/dynamic_partition_comparisons.ipynb): Not referenced in paper;  Compares the accuracy and computation time of the exact partition function solution to the KP and the dynamic programing solution to the KP
 
 
 ## Acknowledgments
