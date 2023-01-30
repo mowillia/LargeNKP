@@ -111,6 +111,8 @@ In the original paper, we compare the performance of various classic knapsack pr
 
 - **Simulated Annealing**(`simannl_knapsack`):   Involves representing the system computationally as a statistical physics one and then "annealing" the system to low temperatures. 
 
+- **Exact $Z$ Algorithm:**(`exact_z_algorithm`) Algortihm based on computing the exact partition function recursively for a particular temperature
+
 - **Large W Algorithm (T=0):**(`largeW_algorithm`)  Algorithm proposed in paper; based on statistical physics representation of the system at $T=0$
 
 - **Large W Algorithm (T\=0):**(`largeW_algorithm`)  Algorithm proposed in paper; on statistical physics representation of the system at $T \neq 0$
@@ -139,6 +141,7 @@ algo_name_dict = {'Brute': KP_camping.brute_force,
                   'FPTAS': KP_camping.fptas,
                   'Greedy': KP_camping.greedy,
                   'Annealing': KP_camping.simann_knapsack,
+                  'Exact Z': KP_camping.exact_z_algorithm,
                   'Large W (T=0)': KP_camping.largeW_algorithm,
                   'Large W (T/=0)': KP_camping.largeW_algorithm}
 
@@ -171,24 +174,28 @@ Printing Table
 ```
 print(tabulate(tabular_results, ["Algorithm", "Value", "Weight", "Time (sec)"], tablefmt="grid"))
 >>>
+
 Stopping annealing because error tolerance was reached
 +----------------+---------+-----------+--------------+
 | Algorithm      |   Value |   Weight  |   Time (sec) |
 +================+=========+===========+==============+
-| Brute          |    1030 |       396 |     18.2886  |
+| Brute          |    1030 |       396 |     17.7323  |
 +----------------+---------+-----------+--------------+
-| DP             |    1030 |       396 |      0.00418 |
+| DP             |    1030 |       396 |      0.00288 |
 +----------------+---------+-----------+--------------+
-| FPTAS          |    1030 |       396 |      0.00532 |
+| FPTAS          |    1030 |       396 |      0.00203 |
 +----------------+---------+-----------+--------------+
-| Greedy         |    1030 |       396 |      8e-05   |
+| Greedy         |    1030 |       396 |      5e-05   |
 +----------------+---------+-----------+--------------+
-| Annealing      |     857 |       396 |      0.07015 |
+| Annealing      |     945 |       396 |      0.06043 |
 +----------------+---------+-----------+--------------+
-| Large W (T=0)  |    1030 |       396 |      0.0603  |
+| Exact Z        |    1030 |       396 |      0.05562 |
 +----------------+---------+-----------+--------------+
-| Large W (T/=0) |    1030 |       396 |      0.00362 |
+| Large W (T=0)  |    1030 |       396 |      0.00097 |
 +----------------+---------+-----------+--------------+
+| Large W (T/=0) |    1030 |       396 |      0.03297 |
++----------------+---------+-----------+--------------+
+
 
 ```
 We see that both large W algorithms yield the correct result, though they are not the fastest algorithms for this instance. 
@@ -197,12 +204,17 @@ We see that both large W algorithms yield the correct result, though they are no
 
 The notebooks that reproduce the figures and tables in the paper are as follows
 
+**
 
 **Main Notebooks**
-- [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 3(a); Runs in < 1 minute
-- [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 3(b); Runs in < 1 minute
-- [`algorithm_comparisons.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons.ipynb): Reproduces Figure 4; Runs in 15 minutes
-- [`linear_gamma.ipynb`](https://github.com/mowillia/largeNKP/blob/main/linear_gamma.ipynb): Reproduces Figure 2; Runs in < 1 minute
+- [`potential_landscape.ipynb`](https://github.com/mowillia/largeNKP/blob/main/potential_landscape.ipynb): Reproduces Figure 2(a); Runs in < 1 minute
+- [`total_value_vs_temperature.ipynb`](https://github.com/mowillia/largeNKP/blob/main/total_value_vs_temperature.ipynb): Reproduces Figure 2(b); Runs in < 1 minute
+- Algorithm Comparison Notebooks
+    - [`algorithm_comparisons_circle.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons_circle.ipynb): Reproduces Figures 3(a), 3(b), and 3(c);  Runs in < 20 minutes
+    - [`algorithm_comparisons_spanner.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons_spanner.ipynb): Reproduces Figure 3(d), 3(e), and 3(f);  Runs in < 20 minutes
+    - [`algorithm_comparisons_profit_ceiling.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons_profit_ceiling.ipynb): Reproduces Figures 5(a), (b), and (c);  Runs in < 20 minutes
+    - [`algorithm_comparisons_multi_strong.ipynb`](https://github.com/mowillia/largeNKP/blob/main/algorithm_comparisons_multi_strong.ipynb): Reproduces Figures 5(d), (e), and (f);  Runs in < 20 minutes
+    - *All of the algorithm comparison notebooks include a computation of the the "norm. ratio. diff." for that instance. These computations affirm Eq. (51) in the paper. 
 
 **Additional Notebooks**
 - [`example.ipynb`](https://github.com/mowillia/largeNKP/blob/main/example.ipynb): Not referenced in paper; Example file for the current readme.
