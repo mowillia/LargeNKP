@@ -85,6 +85,7 @@ def find_root(func, num_powers = 20, **args):
         # reset coeffs if sign doesn't change
         if current_sign > 0:
             coeffs[i] = 0
+            l_start = i
         else:
             l_start = i
             break
@@ -113,6 +114,57 @@ def find_root(func, num_powers = 20, **args):
     error = func(fin_z, **args).real
     
     return fin_z, float(error)
+
+def find_root_bisection(func, xmax = 100, num_bisections = 50, **args):
+
+    """
+    https://en.wikipedia.org/wiki/Bisection_method
+    
+    Finds the root of a function in the domain (0, 1) by 
+    the bisection method
+
+    Parameters
+    ----------
+    func : function
+        Function for which we are seeking the root
+
+    xmax : float
+        Top value of interval for bisection
+        
+    num_bisections : int
+        Number of times to bisect interval
+
+    Returns
+    ----------
+    fin_z : float
+        Value of critical point
+
+    error : float 
+        How far function is from zero at this critical point
+
+    """        
+    
+    a = 0
+    b = xmax
+    c = (a+b)/2
+
+    for k in range(num_bisections):
+        f_a = func(a, **args).real
+        f_b = func(b, **args).real
+        f_c = func(c, **args).real
+
+        if np.sign(f_a) == -np.sign(f_c):
+            b = c
+            c = (a+b)/2
+
+        elif np.sign(f_b) == -np.sign(f_c):  
+            a = c
+            c = (a+b)/2
+
+    fin_z = c
+    error = func(c, **args).real
+
+    return fin_z, error      
 
 def trans_knapsack(x, weights, limit): 
 
@@ -190,16 +242,13 @@ class KnapsackProblem:
     # Exact Partition Function Calculation
     #####
     
-    def exact_z_algorithm(self, rounded=True):
+    def exact_z_algorithm(self, T=1.0, rounded=True, threshold=0.75):
         """
         Computes the exact partition function for the KP 
         using dynamical programming and then uses this solution
         to write the solution to the KP.
 
         """
-
-        # defining temperature as a relatively low value
-        T = 1.0
 
         # item number and weight limit
         N, W = len(self.weights), self.limit
@@ -222,7 +271,7 @@ class KnapsackProblem:
         w = W
         for j in range(N, 0, -1):
             # using X_j definition with simple half threshold
-            was_added = 1 - Z[j-1][w]/Z[j][w] > 0.5
+            was_added = 1 - Z[j-1][w]/Z[j][w] > threshold
 
             if was_added:
                 occupancy[j-1] = 1
@@ -286,7 +335,10 @@ class KnapsackProblem:
     def constraint(self, z, T):
         return -self.limit+ z/(1-z) + np.sum(self.weights/(mp_exp_array(-self.values/T)*mp_exp_array(-self.weights*mp.log(z)) + 1))   
     
-    
+    # constraint function in the limit of zero temperature
+    def constraint_zero(self, gamma):
+        return  self.limit - np.sum(self.weights*np.heaviside(self.values/self.weights - gamma, 1/2))
+
     # consolidating algorithm
     def largeW_algorithm(self, return_gamma=False, T = None, threshold = 0.75, weight_check = False, verbose = False):
 
@@ -319,11 +371,13 @@ class KnapsackProblem:
         
         if T:
             # solving for z0
-            z0  = fmin(self.potential, x0=0.09, args = (T,), disp=False)[0]
+            # z0  = fmin(self.potential, x0=0.09, args = (T,), disp=False)[0]
+            z0, error = find_root(self.constraint, T=T)
             
             # solving for averages
-            x_avgs = 1/(z0**(-self.weights)*np.exp(-self.values/T) + 1)
-            
+#             x_avgs =  1/(np.exp(-self.weights*np.log(z0)-self.values/T) + 1)
+            x_avgs = np.array([float(elem) for elem in 1/(mp_exp_array(-self.weights*np.log(z0)-self.values/T) + 1)])
+
             # including threshold 
             x_soln = np.heaviside(x_avgs - threshold, 0)
             
@@ -344,8 +398,8 @@ class KnapsackProblem:
             # starting temperature
             gamma_val = self.gamma_calc()
 
-            # selecting values
-            x_soln = np.heaviside(self.values - gamma_val*self.weights, 1/2)
+            # selecting values according to definition
+            x_soln = np.heaviside(self.values/self.weights - gamma_val, 0)
             
             # removes marginal values if weight limit is violated
             if weight_check: 
@@ -371,10 +425,6 @@ class KnapsackProblem:
 
         Parameters
         ----------
-        
-        T1, T2 : float
-            Values at which to compute z and infer a slope               
-
 
         Returns
         ----------
@@ -382,19 +432,10 @@ class KnapsackProblem:
             Value of gamma at T=0
 
         """           
-        
-        # defining temperatures
-        ##  T1, T2 =1/np.min(self.values), 1.33/np.min(self.values) #(Alternative choice)
-        T1, T2 = 0.1, 0.12
-        
-        
-        # calculaint z values
-        z1, _ = find_root(self.constraint, T=T1)
-        z2, _ = find_root(self.constraint, T=T2)
 
-        # computing y intercept
-        gamma_zero =  T2*T1/(T2-T1)*np.log(z2/z1)              
-        
+        # computing gamma_zero value
+        gamma_zero, _ = find_root_bisection(self.constraint_zero, num_bisections=70)
+
         return gamma_zero
  
     
@@ -630,9 +671,7 @@ class KnapsackProblem:
                 best_value += self.values[index]
                 best_combination[index] = 1
             else:
-                num_ratio +=1
-                if num_ratio ==1:
-                    return(ratio)      
+                return(ratio)      
 
 
     def knapsack01_dpV(self):
