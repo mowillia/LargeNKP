@@ -215,9 +215,12 @@ def trans_knapsack(x, weights, limit):
         #increment k by 1
         k +=1 
         
-        if k == 100:
+        if k > 1000 and k> 10*len(x):
             
-            raise Exception('Too many selection attempts; Maximum weight appears to be too low to be satisfiable.')
+            x_new = np.copy(x)
+            
+#             raise Exception('Too many selection attempts; Maximum weight appears to be too low to be satisfiable; setting state to be the same')
+            print('Too many selection attempts; Maximum weight appears too low for random solution to be found; setting state to be the same')            
     
     return x_new
 
@@ -788,12 +791,12 @@ class KnapsackProblem:
         # initialized vector which will contain states
         X = np.zeros((n_iterations+1,nelems))
 
-        # defining initial vector
-        X[0] = np.random.randint(0,2,nelems)
+        # defining initial vector of no elements
+        X[0] = np.zeros(nelems)
 
         # choose again if we have exceeded weight
-        while np.dot(X[0], self.weights) > self.limit:
-            X[0] = np.random.randint(0,2,nelems)
+#         while np.dot(X[0], self.weights) > self.limit:
+#             X[0] = np.random.randint(0,2,nelems)
 
         # sets temperature, accepted number, initial iteration, and reannealing
         temp, accepted, i, step_reannl = init_temp, 0, 0, 0
