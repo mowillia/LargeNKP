@@ -1,14 +1,21 @@
 # Large W Limit of Knapsack Problem
 
 <p align="center">
-<img align = "center" src = "https://user-images.githubusercontent.com/8810308/111638380-a53b3400-87d0-11eb-9407-78a613cdd922.png"  onmouseover= "Motivation for statistical physics based algorithm" width = "75%">
+<img align = "center" src = "https://user-images.githubusercontent.com/8810308/111638380-a53b3400-87d0-11eb-9407-78a613cdd922.png"  onmouseover= "Motivation for statistical physics based algorithm" width = "70%"> </br>
+<i>Motivation for statistical-physics algorithm</i>
 </p>
+
 
 The Knapsack Problem is a classic problem from combinatorial optimization. In the "0-1" version of the problem, we are given N objects each of which has a value and a weight, and our objective is to find the collection of objects that maximizes the total value of the collection while ensuring that the weight remain under a given maximum. 
 
 This repository contains code for an algorithm that solves this "0-1" problem in the limit where the weight W is large.
 
 We compare this algorithm with other exact algorithms for the knapsack problem [(RossettaCode Knapsack)](https://rosettacode.org/wiki/Knapsack_problem), which generally proceed in more time. The code and figures in this repository were used to produce the results in the [associated paper](https://arxiv.org/abs/2107.14080).
+
+<p align="center">
+<img align = "center" src = "https://user-images.githubusercontent.com/8810308/226074418-6489f356-0438-4845-a687-e273591a5ed1.png"  onmouseover= "The way statistical physics connects known algorithms for KP" width = "40%"></br>
+<i>Statistical formalism relates DP and greedy algorithms for KP</i>
+</p>
 
 
 ## Knapsack Instance
